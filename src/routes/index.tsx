@@ -1,43 +1,13 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useEffect, useState } from "react";
-type Product = {
-  _id: string;
-  name: string;
-  brand: string;
-  price: number;
-  sizes: number[];
-  images: string;
-  description: string;
-  averageRating: number;
-};
+import type { Product } from "../types/productType";
+import { useProducts } from "../hooks/useProducts";
 
 export const Route = createFileRoute("/")({
   component: ShopPage,
 });
 
 function ShopPage() {
-  const [products, setProducts] = useState<Product[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
-
-  const API_URL = import.meta.env.VITE_API_URL;
-
-  console.log(API_URL);
-  useEffect(() => {
-    fetch(`${API_URL}api/shoes`)
-      .then((res) => {
-        if (!res.ok) throw new Error("Failed to fetch products");
-        return res.json();
-      })
-      .then((data) => {
-        setProducts(data);
-        setLoading(false);
-      })
-      .catch((err) => {
-        setError(err.message);
-        setLoading(false);
-      });
-  }, []);
+  const { products, loading, error } = useProducts();
 
   if (loading) {
     return (
