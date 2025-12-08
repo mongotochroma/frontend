@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState, useEffect } from "react";
-import { fetchProducts } from "../services/getdataservies"; // ⬅️ You already have this
+import { fetchProducts } from "../services/getdataservies";
 
 export const Route = createFileRoute("/reviews")({
   component: ReviewsPage,
@@ -30,7 +30,6 @@ function ReviewsPage() {
 
     console.log("Review Submitted:", formData);
 
-    // TODO: Send to backend (POST /reviews)
     // await createReview(formData)
   };
 

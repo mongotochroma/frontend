@@ -3,7 +3,7 @@ import type { Product } from "../types/productType";
 const API_URL = import.meta.env.VITE_API_URL;
 
 export const fetchProducts = async () => {
-  const response = await fetch(`${API_URL}api/shoes`);
+  const response = await fetch(`${API_URL}/api/shoes`);
 
   if (!response.ok) {
     throw new Error("Failed to fetch products");
@@ -13,9 +13,16 @@ export const fetchProducts = async () => {
   }
 };
 
-export const createProduct = async (formData: { price: number; sizes: number[]; name: string; brand: string; images: string; description: string; }) => {
+export const createProduct = async (formData: {
+  price: number;
+  sizes: number[];
+  name: string;
+  brand: string;
+  images: string;
+  description: string;
+}) => {
   const res = await fetch(
-    "https://mongobackend-production-b08c.up.railway.app/api/shoes",
+    `${API_URL}/api/shoes`,
     {
       method: "POST",
       headers: {
