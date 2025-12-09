@@ -45,9 +45,16 @@ function AddItemPage() {
         images: "",
         description: "",
       });
-    } catch (error: any) {
+    } catch (error) {
       console.error(error);
-      alert("Failed to add product: " + (error.message || "Unknown error"));
+
+      let message = "Unknown error";
+
+      if (error instanceof Error) {
+        message = error.message;
+      }
+
+      alert("Failed to add product: " + message);
     }
   };
 

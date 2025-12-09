@@ -7,7 +7,13 @@ export const Route = createFileRoute("/reviews")({
 });
 
 function ReviewsPage() {
-  const [products, setProducts] = useState([]);
+  interface Product {
+    _id: string;
+    name: string;
+  }
+
+  const [products, setProducts] = useState<Product[]>([]);
+
   const [loading, setLoading] = useState(true);
 
   const [formData, setFormData] = useState({
@@ -60,7 +66,7 @@ function ReviewsPage() {
               required
             >
               <option value="">Choose product…</option>
-              {products.map((p: any) => (
+              {products.map((p) => (
                 <option key={p._id} value={p._id}>
                   {p.name}
                 </option>
