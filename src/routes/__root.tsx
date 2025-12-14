@@ -1,6 +1,5 @@
 // src/routes/__root.tsx
 import { createRootRoute, Link, Outlet } from "@tanstack/react-router";
-import { TanStackRouterDevtools } from "@tanstack/router-devtools";
 
 export const Route = createRootRoute({
   component: () => (
@@ -130,9 +129,6 @@ export const Route = createRootRoute({
           &copy; 2025 ShopHub.
         </div>
       </footer>
-
-      {/* Devtools */}
-      <TanStackRouterDevtools position="bottom-right" />
     </div>
   ),
 });

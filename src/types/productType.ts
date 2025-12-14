@@ -1,4 +1,14 @@
-export interface Product  {
+export interface Review {
+  _id: string;
+  shoeId: string;
+  userName: string;
+  rating: number;
+  review: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface Product {
   _id: string;
   name: string;
   brand: string;
@@ -7,4 +17,6 @@ export interface Product  {
   images: string;
   description: string;
   averageRating: number;
-};
+
+  reviews?: Review[];
+}

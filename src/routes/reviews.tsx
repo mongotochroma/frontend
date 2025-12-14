@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState, useEffect } from "react";
-import { fetchProducts } from "../services/getdataservies";
+import { createReview, fetchProducts } from "../services/getdataservies";
 
 export const Route = createFileRoute("/reviews")({
   component: ReviewsPage,
@@ -17,7 +17,8 @@ function ReviewsPage() {
   const [loading, setLoading] = useState(true);
 
   const [formData, setFormData] = useState({
-    productId: "",
+    shoeId: "",
+    userName: "",
     rating: 0,
     review: "",
   });
@@ -31,12 +32,21 @@ function ReviewsPage() {
     load();
   }, []);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    console.log("Review Submitted:", formData);
+    try {
+      await createReview(formData);
 
-    // await createReview(formData)
+      setFormData({
+        shoeId: formData.shoeId,
+        userName: "",
+        rating: 0,
+        review: "",
+      });
+    } catch (error) {
+      console.error("Review submit failed:", error);
+    }
   };
 
   return (
@@ -47,6 +57,23 @@ function ReviewsPage() {
         onSubmit={handleSubmit}
         className="bg-white rounded-2xl shadow-xl p-10 space-y-8"
       >
+        {/* username */}
+        <div>
+          <label className="block text-gray-700 font-semibold mb-2">
+            Username
+          </label>
+          <input
+            type="text"
+            name="UserName"
+            value={formData.userName}
+            onChange={(e) =>
+              setFormData({ ...formData, userName: e.target.value })
+            }
+            className="w-full px-4 py-3 border rounded-xl"
+            required
+          />
+        </div>
+
         {/* PRODUCT SELECT */}
         <div>
           <label className="block text-gray-700 font-semibold mb-2">
@@ -58,9 +85,9 @@ function ReviewsPage() {
           ) : (
             <select
               name="productId"
-              value={formData.productId}
+              value={formData.shoeId}
               onChange={(e) =>
-                setFormData({ ...formData, productId: e.target.value })
+                setFormData({ ...formData, shoeId: e.target.value })
               }
               className="w-full px-4 py-3 border rounded-xl"
               required
