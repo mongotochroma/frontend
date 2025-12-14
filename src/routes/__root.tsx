@@ -33,6 +33,16 @@ export const Route = createRootRoute({
                 Shop
               </Link>
               <Link
+                to="/chat"
+                activeProps={{
+                  className:
+                    "text-green-600 font-semibold border-b-2 border-green-600",
+                }}
+                className="text-gray-700 hover:text-green-600 font-medium transition-colors pb-1"
+              >
+                Chat
+              </Link>
+              <Link
                 to="/add-item"
                 activeProps={{
                   className:
